@@ -2,11 +2,8 @@
 
 import {
     Button,
-    Checkbox,
     Flex,
     Text,
-    FormControl,
-    FormLabel,
     Heading,
     Input,
     Stack,
@@ -128,7 +125,6 @@ const Register = () => {
             <Flex flex={1} background="red" height={'100vh'}>
                 <Image
                     alt={'Login Image'}
-                    //   objectFit={'cover'}
                     w={'full'}
                     src={loginImage}
                 />
