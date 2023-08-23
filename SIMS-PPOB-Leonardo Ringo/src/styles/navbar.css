@@ -1,0 +1,25 @@
+nav {
+    border-bottom: 1px solid darkgrey;
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 100px;
+    padding-right: 100px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-logo {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.navbar-menu {
+    display: flex;
+    gap: 50px;
+}
+
+.menu-active {
+    color: tomato;
+}
