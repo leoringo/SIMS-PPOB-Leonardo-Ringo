@@ -41,9 +41,11 @@ const Register = () => {
         verifPassword: ""
     })
 
+    const handlePass = () => setShowPass(!showPass)
+    const handleVerifPass = () => setShowVerifPass(!showVerifPass)
+
     const eventHandler = (event) => {
         setRegister ((input) => {
-            console.log({...input, [event.target.name]: event.target.value});
             return {...input, [event.target.name]: event.target.value}
         })
     }
@@ -56,14 +58,12 @@ const Register = () => {
             dispatch(registerUser(register))
                     .then(() => {
                         navigate('/login')
-                    }).catch((err) => {
-                        console.log(err, `DARI ERROR PROMISE`);
+                    }).catch((error) => {
+                        console.log(error, `DARI ERROR PROMISE`);
                     });
         }
     }
-    const handlePass = () => setShowPass(!showPass)
-    const handleVerifPass = () => setShowVerifPass(!showVerifPass)
-
+    
     return (
         <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
             <Flex p={8} flex={1} align={'center'} justify={'center'}>
