@@ -1,9 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
+import profileReducer from './reducers/profileReducer'
+import balanceReducer from './reducers/balanceReducer'
+import servicesReducer from './reducers/servicesReducer'
+import bannerReducer from './reducers/bannerReducer'
 
 const store = configureStore({
   reducer: {
-    // users: usersReducer,
-    // posts: postsReducer,
+    userProfile: profileReducer,
+    userBalance: balanceReducer,
+    listServices: servicesReducer,
+    listBanners: bannerReducer
   }
 })
 

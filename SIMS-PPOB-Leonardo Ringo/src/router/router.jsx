@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, redirect } from "react-router-dom";
 import App from '../App'
 import Login from '../views/Login'
 import Register from '../views/Register'
@@ -11,14 +11,35 @@ import Account from "../views/Account";
 const router = createBrowserRouter([
     {
       path: "/login",
-      element: <Login />
+      element: <Login />,
+      loader: async () => {
+        let token = localStorage.token
+        if(token) {
+          return redirect ("/")
+        };
+        return null
+      }
     },
     {
       path: "/register",
-      element: <Register />
+      element: <Register />,
+      loader: async () => {
+        let token = localStorage.token
+        if(token) {
+          return redirect("/")
+        };
+        return null
+      }
     },
     {
       element: <App />,
+      loader: async () => {
+        let token = localStorage.token
+        if(!token) {
+          return redirect("/login")
+        };
+        return null
+      },
       children: [
         {
           path: "/",
