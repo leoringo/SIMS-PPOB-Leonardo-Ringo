@@ -40,7 +40,6 @@ const Login = () => {
 
     const eventHandler = (event) => {
         setLogin ((input) => {
-            console.log({...input, [event.target.name]: event.target.value});
             return {...input, [event.target.name]: event.target.value}
         })
     }

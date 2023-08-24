@@ -131,3 +131,23 @@ export function fetchBanner() {
         }
     }
 }
+
+export function addBalance(value) {
+    return async (dispatch) => {
+        try {
+            const { data } = await axios({
+                url: BASEURL + '/topup',
+                data: {
+                    "top_up_amount": Number(value)
+                },
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.token}`
+                }
+            })
+            dispatch(fetchBalance())
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
