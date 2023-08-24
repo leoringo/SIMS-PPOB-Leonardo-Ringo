@@ -1,9 +1,13 @@
 import axios from "axios"
-import { BASEURL, 
-    SUCCESS_FETCH_BALANCE, 
-    SUCCESS_FETCH_BANNER, 
-    SUCCESS_FETCH_PROFILE, 
-    SUCCESS_FETCH_SERVICE } from "./actionType"
+import {
+    BASEURL,
+    SUCCESS_FETCH_BALANCE,
+    SUCCESS_FETCH_BANNER,
+    SUCCESS_FETCH_HISTORIES,
+    SUCCESS_FETCH_PROFILE,
+    SUCCESS_FETCH_SERVICE,
+    SUCCESS_FETCH_SERVICE_DETAIL
+} from "./actionType"
 
 // ================================ PAYLOADS ======================================
 const profilePayload = (payload) => {
@@ -30,6 +34,20 @@ const servicesPayload = (payload) => {
 const bannerPayload = (payload) => {
     return {
         type: SUCCESS_FETCH_BANNER,
+        payload
+    }
+}
+
+export const serviceDetailPayload = (payload) => {
+    return {
+        type: SUCCESS_FETCH_SERVICE_DETAIL,
+        payload
+    }
+}
+
+const historyPayload = (payload) => {
+    return {
+        type: SUCCESS_FETCH_HISTORIES,
         payload
     }
 }
@@ -146,6 +164,43 @@ export function addBalance(value) {
                 }
             })
             dispatch(fetchBalance())
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export function paymentService(input) {
+    return async (dispatch) => {
+        try {
+            const { data } = await axios({
+                url: BASEURL + '/transaction',
+                data: {
+                    "service_code": input
+                },
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.token}`
+                }
+            })
+            dispatch(fetchBalance())
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export function fetchHistories() {
+    return async (dispatch) => {
+        try {
+            const { data } = await axios({
+                url: BASEURL + '/transaction/history?offset=0&limit=5',
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.token}`
+                }
+            })
+            dispatch(historyPayload(data.data))
         } catch (error) {
             console.log(error);
         }

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { SimpleGrid } from '@chakra-ui/react'
 import { fetchBalance, fetchBanner, fetchProfile, fetchServices } from "../store/actions/actionCreator"
+import ServiceCard from "../components/Services"
 
 const Home = () => {
     const dispatch = useDispatch()
@@ -37,7 +39,11 @@ const Home = () => {
                 <h1>{profile.first_name} {profile.last_name}</h1>
                 <h1>Saldo anda</h1>
                 <h1>Rp. {balance.balance}</h1>
-                <img src={services[0].service_icon} alt="" />
+                <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
+                    {services.map((el, i) => (
+                        <ServiceCard key={i} service={el} index={i} />
+                    ))}
+                </SimpleGrid>
                 <img src={banner[0].banner_image} alt="" />
             </>
         )

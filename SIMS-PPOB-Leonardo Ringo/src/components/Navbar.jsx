@@ -13,7 +13,7 @@ const Navbar = () => {
             </div>
             <div className="navbar-menu">
                 <NavLink to={"/top-up"} className={({ isActive }) => isActive ? "menu-active" : ""}>Top Up</NavLink>
-                <NavLink to={"/transaction"} className={({ isActive }) => isActive ? "menu-active" : ""} >Transaction</NavLink>
+                <NavLink to={"/transaction"} className={({ isActive }) => isActive ? "menu-active" : ""}>Transaction</NavLink>
                 <NavLink to={"/profile"} className={({ isActive }) => isActive ? "menu-active" : ""}>Akun</NavLink>
             </div>
         </nav>

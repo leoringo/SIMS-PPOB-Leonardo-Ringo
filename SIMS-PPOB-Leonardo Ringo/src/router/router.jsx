@@ -6,6 +6,7 @@ import Home from '../views/Home'
 import Transaction from "../views/Transaction";
 import TopUp from "../views/TopUp";
 import Account from "../views/Account";
+import PaymentService from "../views/PaymentService";
 
 
 const router = createBrowserRouter([
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
         {
           path: "/profile",
           element: <Account />
+        },
+        {
+          path: "/payment",
+          element: <PaymentService />
         }
       ]
     }

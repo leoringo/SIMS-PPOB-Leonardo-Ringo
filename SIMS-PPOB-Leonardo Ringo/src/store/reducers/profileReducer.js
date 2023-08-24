@@ -1,7 +1,8 @@
-import { SUCCESS_FETCH_PROFILE } from "../actions/actionType";
+import { SUCCESS_FETCH_HISTORIES, SUCCESS_FETCH_PROFILE } from "../actions/actionType";
 
 const initialState = {
-    profile: {}
+    profile: {},
+    histories: []
 }
 
 export default function profileReducer(state = initialState, action) {
@@ -11,6 +12,12 @@ export default function profileReducer(state = initialState, action) {
                 ...state,
                 profile: action.payload
             };
+
+        case SUCCESS_FETCH_HISTORIES:
+            return {
+                ...state,
+                histories: action.payload
+            }
 
         default: 
             return state
