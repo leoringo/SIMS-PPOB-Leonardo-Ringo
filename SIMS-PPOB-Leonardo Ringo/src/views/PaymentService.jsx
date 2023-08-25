@@ -88,7 +88,7 @@ const PaymentService = () => {
                 <InputLeftElement pointerEvents="none">
                   <SmallAddIcon color="gray.300" />
                 </InputLeftElement>
-                <Input w={"1000px"} disabled value={serviceDetail.service_tariff} />
+                <Input id="input-payment" w={"1000px"} disabled value={serviceDetail.service_tariff} />
               </InputGroup><br />
               {balance.balance < serviceDetail.service_tariff ? <Button colorScheme="gray" w={"1000px"} disabled>Bayar</Button> : <Button colorScheme="red" w={"1000px"} onClick={paymentSubmit}>Bayar</Button>}
             </div>

@@ -7,6 +7,12 @@
     box-sizing: border-box;
 }
 
+#input-payment:disabled {
+    opacity: 1;
+    color: black;
+    cursor: default;
+}
+
 .profile-info {
     display: flex;
     justify-content: space-between;

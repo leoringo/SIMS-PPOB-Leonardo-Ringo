@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { addBalance, fetchBalance, fetchProfile } from "../store/actions/actionCreator"
-import { InputGroup, InputLeftElement, Input, Button } from "@chakra-ui/react"
+import { InputGroup, InputLeftElement, Input, Button, useToast } from "@chakra-ui/react"
 import { SmallAddIcon } from "@chakra-ui/icons"
 import ProfilePhoto from '../assets/Profile Photo.png'
 import '../styles/topUp.css'
@@ -10,6 +10,7 @@ import '../styles/topUp.css'
 const TopUp = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const toast = useToast()
 
   const [isLoading, setIsLoading] = useState(true)
   const [topUp, setTopUp] = useState("")
@@ -35,7 +36,11 @@ const TopUp = () => {
   const submitTopUp = (event) => {
     event.preventDefault()
     if (topUp < 10000 || topUp > 1000000) {
-      console.log(`Minimal/maksimal TopUp salah!`);
+      toast({
+        title: "Input TopUp harus Rp 10.000 - Rp. 1.000.000 !",
+        isClosable: true,
+        position: "top"
+      })
       setTopUp(0)
     } else {
       dispatch(addBalance(topUp))

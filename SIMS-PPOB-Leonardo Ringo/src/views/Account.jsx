@@ -39,7 +39,16 @@ const Account = () => {
   })
 
   const editSubmit = () => {
-    dispatch(editData(form))
+    if(!form.first_name || !form.last_name) {
+      toast({
+        title: "Input tidak boleh kosong !",
+        isClosable: true,
+        position: "top"
+      })
+    } else{
+      dispatch(editData(form))
+      setEdit(false)
+    }
   }
 
   const editButtonHandler = () => {
@@ -65,7 +74,7 @@ const Account = () => {
     if (event.target.files && event.target.files[0]) {
       if (event.target.files[0].size > 1 * 1000 * 100) {
         toast({
-          title: "File with maximum size of 100KB is allowed",
+          title: "Maksimum ukuran foto tidak boleh melebihi 100KB !",
           isClosable: true,
           position: "top"
         })
