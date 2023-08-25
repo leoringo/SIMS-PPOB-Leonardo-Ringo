@@ -6,7 +6,7 @@ import {
     SUCCESS_FETCH_HISTORIES,
     SUCCESS_FETCH_PROFILE,
     SUCCESS_FETCH_SERVICE,
-    SUCCESS_FETCH_SERVICE_DETAIL
+    SUCCESS_FETCH_SERVICE_DETAIL,
 } from "./actionType"
 
 // ================================ PAYLOADS ======================================
@@ -190,17 +190,35 @@ export function paymentService(input) {
     }
 }
 
-export function fetchHistories() {
+export function fetchHistories(offset = 0) {
     return async (dispatch) => {
         try {
             const { data } = await axios({
-                url: BASEURL + '/transaction/history?offset=0&limit=5',
+                url: BASEURL + `/transaction/history?offset=${offset}&limit=5`,
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${localStorage.token}`
                 }
             })
             dispatch(historyPayload(data.data))
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export function editData(input) {
+    return async (dispatch) => {
+        try {
+            const { data } = await axios ({
+                url: BASEURL + '/profile/update',
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.token}`
+                },
+                data: input
+            })
+            dispatch(fetchProfile())
         } catch (error) {
             console.log(error);
         }

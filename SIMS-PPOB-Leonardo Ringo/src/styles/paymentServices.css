@@ -1,4 +1,4 @@
-#topUp-container {
+#services-container {
     display: flex;
     flex-direction: column;
     width: 100vw;
@@ -37,19 +37,12 @@
     width: 40%;
 }
 
-.balances-topUp p:nth-child(1) {
-    font-size: 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.form-payment{
+    margin-top: 50px;
 }
 
-.balances-topUp p:nth-child(2) {
-    font-size: 30px;
+.form-payment p:nth-child(1){
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: gray;
     font-weight: bold;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.input-form {
-    border: 1px groove grey;
-    border-radius: 5px;
-    width: 2%;
 }

@@ -35,7 +35,7 @@ const TopUp = () => {
   const submitTopUp = (event) => {
     event.preventDefault()
     if (topUp < 10000 || topUp > 1000000) {
-      console.log(`minimal atau maksimalnya salah bang`);
+      console.log(`Minimal/maksimal TopUp salah!`);
       setTopUp(0)
     } else {
       dispatch(addBalance(topUp))
@@ -102,7 +102,7 @@ const TopUp = () => {
                     </InputLeftElement>
                     <Input type="number" name="topUp" value={topUp} onChange={topUpHandler} placeholder="masukan nominal topup" w={"1000px"} />
                   </InputGroup><br />
-                  {!button ? <Button disabled colorScheme='gray' w={"1000px"}>TopUp</Button> : <Button colorScheme='blue' w={"1000px"} type="submit" onClick={submitTopUp}>TopUp</Button>}
+                  {!button ? <Button disabled colorScheme='gray' w={"1000px"}>TopUp</Button> : <Button colorScheme='red' w={"1000px"} type="submit" onClick={submitTopUp}>TopUp</Button>}
                 </form>
               </div>
               <div className="topUp-options">
