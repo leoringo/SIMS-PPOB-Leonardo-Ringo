@@ -25,11 +25,13 @@ import { useDispatch } from "react-redux"
 import { loginUser } from '../store/actions/actionCreator';
 import loginImage from '../assets/Illustrasi login.png'
 import logo from '../assets/Logo.png'
+import ErrorAlert from '../components/Alert';
 
 const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    const [errorMessage, setErrorMessage] = useState ("")
     const [showPass, setShowPass] = useState(false)
     const [login, setLogin] = useState({
         email: "",
@@ -50,7 +52,7 @@ const Login = () => {
                 .then(() => {
                     navigate('/')
                 }).catch((error) => {
-                    console.log(error, `DARI ERROR PROMISE`);
+                    setErrorMessage(error.response.data.message)
                 });
     }
    
@@ -98,6 +100,7 @@ const Login = () => {
                     src={loginImage}
                 />
             </Flex>
+            <ErrorAlert errorMessage={errorMessage} setErrorMessage={setErrorMessage}/>
         </Stack>
     )
 }

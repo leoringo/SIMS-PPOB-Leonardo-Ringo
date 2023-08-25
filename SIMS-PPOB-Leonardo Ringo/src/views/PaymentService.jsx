@@ -8,6 +8,8 @@ const PaymentService = () => {
   const navigate = useNavigate()
 
   const [isLoading, setIsLoading] = useState(true)
+  const [hideBalance, setShowHideBalance] = useState(false)
+  const [balanceHider, setBalanceHider] = useState("")
 
   const { profile } = useSelector((state) => {
     return state.userProfile

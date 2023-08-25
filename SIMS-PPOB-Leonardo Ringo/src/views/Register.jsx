@@ -12,7 +12,7 @@ import {
     InputGroup,
     InputLeftElement,
     InputRightElement,
-    IconButton
+    IconButton,
 } from '@chakra-ui/react'
 import {
     AtSignIcon,
@@ -26,6 +26,7 @@ import { useDispatch } from "react-redux"
 import { registerUser } from '../store/actions/actionCreator';
 import loginImage from '../assets/Illustrasi login.png'
 import logo from '../assets/Logo.png'
+import ErrorAlert from '../components/Alert';
 
 const Register = () => {
     const dispatch = useDispatch()
@@ -33,6 +34,7 @@ const Register = () => {
 
     const [showPass, setShowPass] = useState(false)
     const [showVerifPass, setShowVerifPass] = useState(false)
+    const [errorMessage, setErrorMessage] = useState ("")
     const [register, setRegister] = useState({
         email: "",
         first_name: "",
@@ -45,25 +47,25 @@ const Register = () => {
     const handleVerifPass = () => setShowVerifPass(!showVerifPass)
 
     const eventHandler = (event) => {
-        setRegister ((input) => {
-            return {...input, [event.target.name]: event.target.value}
+        setRegister((input) => {
+            return { ...input, [event.target.name]: event.target.value }
         })
     }
 
     const submitForm = (event) => {
         event.preventDefault()
-        if(register.password !== register.verifPassword) {
-            console.log(`PASSWORD NYA GAK SESUAI`);
+        if (register.password !== register.verifPassword) {
+            setErrorMessage("Failed to verif password!")
         } else {
             dispatch(registerUser(register))
-                    .then(() => {
-                        navigate('/login')
-                    }).catch((error) => {
-                        console.log(error, `DARI ERROR PROMISE`);
-                    });
+                .then(() => {
+                    navigate('/login')
+                }).catch((error) => {
+                    setErrorMessage(error.response.data.message)
+                });
         }
     }
-    
+
     return (
         <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
             <Flex p={8} flex={1} align={'center'} justify={'center'}>
@@ -129,6 +131,7 @@ const Register = () => {
                     src={loginImage}
                 />
             </Flex>
+            <ErrorAlert errorMessage={errorMessage} setErrorMessage={setErrorMessage}/>
         </Stack>
     )
 }

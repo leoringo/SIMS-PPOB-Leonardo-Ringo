@@ -1,12 +1,3 @@
-import {
-    Card,
-    CardHeader,
-    CardBody,
-    CardFooter,
-    Button,
-    Text,
-    Image
-} from '@chakra-ui/react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { serviceDetailPayload } from '../store/actions/actionCreator';
@@ -22,17 +13,10 @@ const ServiceCard = ({service, index}) => {
     }
 
     return (
-        <Card>
-            <CardHeader>
-                <Image src={service.service_icon} onClick={clickHandler}/>
-            </CardHeader>
-            <CardBody>
-                <Text>{service.service_name}</Text>
-            </CardBody>
-            <CardFooter>
-                <Button>View here</Button>
-            </CardFooter>
-        </Card>
+        <div style={{display: 'flex', flexDirection: 'column',  alignItems: 'center', width: "5%", cursor: "pointer", flex: 1}} onClick={clickHandler}>
+            <img src={service.service_icon} alt="image" width={"100%"}/>
+            <p style={{fontSize: '12px', textAlign: 'center', fontWeight: 'bold'}}>{service.service_name}</p>
+        </div>
     )
 }
 

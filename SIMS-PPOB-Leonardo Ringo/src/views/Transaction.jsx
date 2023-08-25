@@ -11,6 +11,7 @@ const Transaction = () => {
 
   const [isLoading, setIsLoading] = useState(true)
   const [showHistories, setShowHistories] = useState([])
+  const [offset, setOffset] = useState(0)
 
   const { profile } = useSelector((state) => {
     return state.userProfile
@@ -24,27 +25,59 @@ const Transaction = () => {
     return state.userBalance
   })
 
-  const offsetHandler = async () => {
+  // const offsetHandler = async () => {
+  //   try {
+  //     if(showHistories.length === 0) {
+  //       const { data } = await axios({
+  //         url: BASEURL + `/transaction/history?offset=${Number(histories.offset) + 5}&limit=5`,
+  //         method: 'GET',
+  //         headers: {
+  //           'Authorization': `Bearer ${localStorage.token}`
+  //         }
+  //       })
+  //       console.log(data);
+  //       setShowHistories(data)
+  //     } else {
+  //       const { data } = await axios({
+  //         url: BASEURL + `/transaction/history?offset=${Number(showHistories.offset) + 5}&limit=5`,
+  //         method: 'GET',
+  //         headers: {
+  //           'Authorization': `Bearer ${localStorage.token}`
+  //         }
+  //       })
+  //       setShowHistories({offset: data.offest, records: [...showHistories.records, data.records]})
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
+  const fetchHistories = async () => {
     try {
-      if(showHistories.length === 0) {
+      if(offset === 0) {
         const { data } = await axios({
-          url: BASEURL + `/transaction/history?offset=${Number(histories.offset) + 5}&limit=5`,
+          url: BASEURL + `/transaction/history?offset=${offset}&limit=5`,
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${localStorage.token}`
           }
         })
-        console.log(data);
-        setShowHistories(data)
+        setShowHistories(data.data.records)
+        console.log(showHistories, `INI DARI SAMSUL MASUK KE IF`);
+        setOffset(offset + 5)
+        console.log(offset, `IF`);
       } else {
         const { data } = await axios({
-          url: BASEURL + `/transaction/history?offset=${Number(showHistories.offset) + 5}&limit=5`,
+          url: BASEURL + `/transaction/history?offset=${offset}&limit=5`,
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${localStorage.token}`
           }
         })
-        setShowHistories({offset: data.offest, records: [...showHistories.records, data.records]})
+        setShowHistories([...showHistories, ...data.data.records])
+        console.log(showHistories, `INI DARI SAMSUL MASUK KE ELSE`);
+        setOffset(offset + 5 )
+        console.log(offset, `ELSE`);
       }
     } catch (error) {
       console.log(error);
@@ -54,7 +87,8 @@ const Transaction = () => {
   useEffect(() => {
     dispatch(fetchProfile())
     dispatch(fetchBalance())
-    dispatch(fetchHistories())
+    // dispatch(fetchHistories())
+    fetchHistories()
       .finally(() => setIsLoading(false))
   }, [])
 
@@ -68,14 +102,8 @@ const Transaction = () => {
         <h1>{profile.first_name} {profile.last_name}</h1>
         <h1>Saldo anda</h1>
         <h1>Rp. {balance.balance}</h1>
-        {histories.records.map((e, i) => (
-          <h1 key={i}>{e.description}</h1>
-        ))}
-        {showHistories?.records.map((e, i) => (
-          <h1 key={i}>{e.description}</h1>
-        ))}
-        {console.log(showHistories)}
-        <button onClick={offsetHandler}>SHOW MORE</button>
+        <button onClick={fetchHistories}>TEKAN AKU</button>
+
       </>
     )
   }
